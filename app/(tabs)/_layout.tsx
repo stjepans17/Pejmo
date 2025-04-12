@@ -17,13 +17,19 @@ export default function TabLayout() {
 
           switch (route.name) {
             case "home":
-              iconName = "home-outline";
+              iconName = "home-outline"; // 🏠 Home page
               break;
             case "reservations":
-              iconName = "home-outline";
+              iconName = "calendar-outline"; // 📅 Bookings / Reservations
+              break;
+            case "add":
+              iconName = "add-circle-outline";
               break;
             case "profile":
-              iconName = "home-outline";
+              iconName = "person-outline"; // 👤 Profile
+              break;
+            case "messages":
+              iconName = "chatbubble-ellipses-outline"; // 💬 Messages
               break;
             default:
               iconName = "home-outline";
@@ -45,6 +51,7 @@ export default function TabLayout() {
     >
       <Tabs.Screen name="home" options={{ title: "Home" }} />
       <Tabs.Screen name="reservations" options={{ title: "Reservations" }} />
+      <Tabs.Screen name="add" options={{ title: "Add" }} />
       <Tabs.Screen name="profile" options={{ title: "Profile" }} />
     </Tabs>
   );

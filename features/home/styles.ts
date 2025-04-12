@@ -1,17 +1,35 @@
 import { StyleSheet } from "react-native";
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 20,
-    backgroundColor: "#f4f4f4",
+    padding: 24,
+    backgroundColor: "#f9f9f9",
   },
   heading: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: 22,
+    fontWeight: "700",
     textAlign: "center",
-    marginTop: 10,
-    marginBottom: 20,
+    marginVertical: 20,
+    color: "#333",
+  },
+  toggleContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 20,
+    marginBottom: 12,
+  },
+  toggleText: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    fontWeight: "600",
+    fontSize: 16,
+    color: "#666",
+    borderRadius: 6,
+  },
+  active: {
+    color: "#4600DE",
+    backgroundColor: "#E8E8FF",
   },
   navbar: {
     // flex: 1,
@@ -51,4 +69,48 @@ const styles = StyleSheet.create({
   },
 });
 
-export default styles;
+  backButton: {
+    marginTop: 10,
+    marginBottom: 10,
+    alignSelf: "flex-start",
+  },
+  backButtonText: {
+    fontSize: 16,
+    color: "#4600DE",
+    fontWeight: "600",
+  },
+
+  resultWrapper: {
+    marginTop: 24,
+  },
+  resultsHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  resultTitle: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#222",
+  },
+  resultDate: {
+    fontSize: 15,
+    color: "#555",
+  },
+  label: {
+    marginTop: 12,
+    fontWeight: "600",
+    fontSize: 15,
+    color: "#333",
+  },
+  input: {
+    backgroundColor: "#f5f5f5",
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    marginTop: 4,
+  },
+});

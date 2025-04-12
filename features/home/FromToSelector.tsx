@@ -1,6 +1,12 @@
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import RNPickerSelect from "react-native-picker-select";
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  FlatList,
+} from "react-native";
 
 interface Props {
   searchType: "ride" | "passenger";
@@ -11,13 +17,9 @@ interface Props {
   setToCity: (city: string) => void;
 }
 
-const cities = [
-  { label: "Ljubljana", value: "Ljubljana" },
-  { label: "Maribor", value: "Maribor" },
-  { label: "Koper", value: "Koper" },
-  { label: "Celje", value: "Celje" },
-  { label: "Novo mesto", value: "Novo mesto" },
-  { label: "Kranj", value: "Kranj" },
+const allCities = [
+  "Ljubljana", "Maribor", "Koper", "Celje", "Novo mesto", "Kranj", "Velenje",
+  "Nova Gorica", "Ptuj", "Murska Sobota",
 ];
 
 export default function FromToSelector({
@@ -28,84 +30,109 @@ export default function FromToSelector({
   setFromCity,
   setToCity,
 }: Props) {
+  const [fromQuery, setFromQuery] = useState(fromCity);
+  const [toQuery, setToQuery] = useState(toCity);
+  const [showFromSuggestions, setShowFromSuggestions] = useState(false);
+  const [showToSuggestions, setShowToSuggestions] = useState(false);
+
+  const filteredFrom = allCities.filter(city =>
+    city.toLowerCase().includes(fromQuery.toLowerCase()) && city !== toQuery
+  );
+  const filteredTo = allCities.filter(city =>
+    city.toLowerCase().includes(toQuery.toLowerCase()) && city !== fromQuery
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.toggleContainer}>
-        <Text
-          style={[styles.toggleText, searchType === "ride" && styles.active]}
-          onPress={() => setSearchType("ride")}
-        >
-          ride
-        </Text>
-        <Text
-          style={[styles.toggleText, searchType === "passenger" && styles.active]}
-          onPress={() => setSearchType("passenger")}
-        >
-          passenger
-        </Text>
-      </View>
-
+      {/* From input */}
       <Text style={styles.label}>From:</Text>
-
-      <View>
-				<RNPickerSelect
-					placeholder={{ label: "Choose city...", value: "" }}
-					onValueChange={(value) => setFromCity(value)}
-					items={cities}
-					value={fromCity || ""}
-					style={pickerStyles}
-				/>
-			</View>
-
-      <Text style={styles.label}>To:</Text>
-      <RNPickerSelect
-        placeholder={{ label: "Choose city...", value: null }}
-        onValueChange={setToCity}
-        items={cities}
-        value={toCity || ""}
-        style={pickerStyles}
+      <TextInput
+        value={fromQuery}
+        onChangeText={(text) => {
+          setFromQuery(text);
+          setShowFromSuggestions(true);
+        }}
+        onFocus={() => setShowFromSuggestions(true)}
+        placeholder="Start typing..."
+        style={styles.input}
       />
+      {showFromSuggestions && filteredFrom.length > 0 && (
+        <FlatList
+          data={filteredFrom}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                setFromCity(item);
+                setFromQuery(item);
+                setShowFromSuggestions(false);
+              }}
+              style={styles.suggestion}
+            >
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+
+      {/* To input */}
+      <Text style={styles.label}>To:</Text>
+      <TextInput
+        value={toQuery}
+        onChangeText={(text) => {
+          setToQuery(text);
+          setShowToSuggestions(true);
+        }}
+        onFocus={() => setShowToSuggestions(true)}
+        placeholder="Start typing..."
+        style={styles.input}
+      />
+      {showToSuggestions && filteredTo.length > 0 && (
+        <FlatList
+          data={filteredTo}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              onPress={() => {
+                setToCity(item);
+                setToQuery(item);
+                setShowToSuggestions(false);
+              }}
+              style={styles.suggestion}
+            >
+              <Text>{item}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { marginTop: 20 },
-  toggleContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    gap: 20,
-    marginBottom: 16,
-  },
-  toggleText: {
-    padding: 8,
-    fontWeight: "600",
-    fontSize: 16,
-    color: "#555",
-  },
-  active: {
-    color: "#4600DE",
-    textDecorationLine: "underline",
+export const styles = StyleSheet.create({
+  container: {
+    marginTop: 10,
+    gap: 16,
   },
   label: {
-    marginTop: 12,
     fontWeight: "600",
+    fontSize: 15,
+    color: "#333",
+    marginBottom: 4,
+  },
+  input: {
+    backgroundColor: "#fff",
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: "#ddd",
+    fontSize: 15,
+  },
+  suggestion: {
+    padding: 10,
+    backgroundColor: "#fff",
+    borderBottomWidth: 1,
+    borderColor: "#eee",
   },
 });
-
-const pickerStyles = {
-  inputIOS: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 6,
-    marginTop: 4,
-  },
-  inputAndroid: {
-    paddingVertical: 8,
-    paddingHorizontal: 10,
-    backgroundColor: "#f5f5f5",
-    borderRadius: 6,
-    marginTop: 4,
-  },
-};

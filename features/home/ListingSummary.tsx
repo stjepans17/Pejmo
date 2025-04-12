@@ -1,27 +1,47 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
+interface DayData {
+  label: string;
+  rides: number;
+  passengers: number;
+}
 
 interface Props {
   from: string;
   to: string;
+  days: DayData[];
 }
 
-export default function ListingSummary({ from, to }: Props) {
+export default function ListingSummary({ from, to, days }: Props) {
+  const handlePress = (day: string) => {
+    console.log(`Pressed ${day}`);
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.header}>
         <Text style={styles.route}>
           {from} → {to}
         </Text>
-        <Ionicons name="swap-horizontal" size={22} />
+        <Ionicons name="swap-horizontal" size={22} color="#444" />
       </View>
 
-      {["Sunday", "Monday"].map((day) => (
-        <View key={day} style={styles.row}>
-          <Text style={styles.day}>{day}</Text>
-          <Text style={styles.data}>10 rides | 11 passengers</Text>
-        </View>
+      {days.map((day) => (
+        <Pressable
+          key={day.label}
+          onPress={() => handlePress(day.label)}
+          style={({ pressed }) => [
+            styles.dayRow,
+            pressed && styles.dayRowPressed,
+          ]}
+        >
+          <Text style={styles.dayLabel}>{day.label}</Text>
+          <Text style={styles.dayData}>
+            {day.rides} rides | {day.passengers} passengers
+          </Text>
+        </Pressable>
       ))}
     </View>
   );
@@ -30,31 +50,44 @@ export default function ListingSummary({ from, to }: Props) {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#fff",
-    borderRadius: 12,
+    borderRadius: 14,
     padding: 16,
-    marginTop: 16,
+    marginHorizontal: 16,
+    marginTop: 12,
     shadowColor: "#000",
     shadowOpacity: 0.05,
     shadowRadius: 6,
-    elevation: 3,
+    elevation: 2,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 10,
+    alignItems: "center",
+    marginBottom: 12,
   },
   route: {
+    fontSize: 17,
     fontWeight: "600",
-    fontSize: 16,
+    color: "#222",
   },
-  row: {
+  dayRow: {
+    paddingVertical: 10,
+    paddingHorizontal: 8,
+    borderRadius: 8,
+    marginBottom: 6,
+    backgroundColor: "#F6F6F6",
     flexDirection: "row",
     justifyContent: "space-between",
   },
-  day: {
-    fontWeight: "500",
+  dayRowPressed: {
+    backgroundColor: "#EDEAFF",
   },
-  data: {
-    color: "#444",
+  dayLabel: {
+    fontWeight: "600",
+    color: "#333",
+  },
+  dayData: {
+    fontSize: 14,
+    color: "#555",
   },
 });
