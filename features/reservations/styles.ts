@@ -71,14 +71,16 @@ export const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 10,
     backgroundColor: "#E8E8FF",
-    borderRadius: 6,  },
-  
+    borderRadius: 6,
+  },
+
   messageButton: {
     paddingVertical: 6,
     paddingHorizontal: 10,
     backgroundColor: "#E8E8FF",
-    borderRadius: 6,  },
-  
+    borderRadius: 6,
+  },
+
   buttonText: {
     fontSize: 13,
     fontWeight: "600",
@@ -98,45 +100,47 @@ export const styles = StyleSheet.create({
   declineButtonText: {
     color: "#F44336"
   },
-  
+
   // Navbar
 
   navbar: {
-    flexDirection: "row",
-    paddingTop: 16,
-    paddingBottom: 12,
-    paddingHorizontal: 20,
+    flex: 1,
+    //height: 90,
+    flexDirection: 'row',
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.05,
-    shadowRadius: 6,
-    elevation: 3,
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+    zIndex: 10,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "space-between",
   },
 
   navbarSide: {
     flex: 1,
     alignItems: "center",
   },
-
   navbarCenter: {
     flex: 3,
-    alignItems: "center",
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 10
   },
-
+  headerTitle: {
+    letterSpacing: -2.5,
+    color: '#4600DE',
+    fontSize: 28,
+  },
   navbarTitle: {
-    fontSize: 26,
-    fontWeight: "700",
-    letterSpacing: -1,
-    color: "#4600DE",
+    fontSize: 28,
+    letterSpacing: -2.5,
+    color: '#4600DE'
   },
 
   main: {
-    flex: 1,
-    paddingTop: 10,
-    paddingHorizontal: 16,
+    flex: 8,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
 
   mainTitle: {

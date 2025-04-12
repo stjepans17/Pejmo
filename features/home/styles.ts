@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 24,
     backgroundColor: "#f9f9f9",
   },
   heading: {
@@ -32,8 +31,8 @@ export const styles = StyleSheet.create({
     backgroundColor: "#E8E8FF",
   },
   navbar: {
-    // flex: 1,
-    height: 90,
+    flex: 1,
+    //height: 90,
     flexDirection: 'row',
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
@@ -42,6 +41,19 @@ export const styles = StyleSheet.create({
     elevation: 5,
     zIndex: 10,
     backgroundColor: "#fff",
+  },
+  main: {
+    flex: 8,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  mainAdd: {
+    flex: 8,
+    justifyContent: 'center',
+    alignItems: 'flex-start'
+  },
+  mainContent: {
+    width: '80%'
   },
   navbarSide: {
     flex: 1,
@@ -52,7 +64,7 @@ export const styles = StyleSheet.create({
     flex: 3,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 9
+    marginBottom: 10
   },
   navbarTitle: {
     fontSize: 28,

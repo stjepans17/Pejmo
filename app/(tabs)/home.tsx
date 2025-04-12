@@ -102,68 +102,82 @@ export default function HomeScreen() {
   };
 
   return (
-    <FlatList
-      data={searchResultsVisible ? [] : listings}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => (
-        <ListingSummary from={item.from} to={item.to} days={item.days} />
-      )}
-      ListHeaderComponent={
-        <View style={styles.container}>
-          <Text style={styles.heading}>I'm looking for a:</Text>
-
-          <View style={styles.toggleContainer}>
-            <Pressable onPress={() => setSearchType("ride")}> 
-              <Text style={[styles.toggleText, searchType === "ride" && styles.active]}>Ride</Text>
-            </Pressable>
-
-            <Pressable onPress={() => setSearchType("passenger")}> 
-              <Text style={[styles.toggleText, searchType === "passenger" && styles.active]}>Passenger</Text>
-            </Pressable>
-          </View>
-
-          {!searchResultsVisible && (
-            <>
-              <FromToSelector
-                searchType={searchType}
-                setSearchType={setSearchType}
-                fromCity={fromCity}
-                toCity={toCity}
-                setFromCity={setFromCity}
-                setToCity={setToCity}
-              />
-
-              <DateSelector dateTime={dateTime} setDateTime={setDateTime} />
-              <SearchButton onPress={fetchSearchResults} />
-            </>
-          )}
-
-          {searchResultsVisible && (
-            <>
-              <Pressable onPress={handleBack} style={styles.backButton}>
-                <Text style={styles.backButtonText}>← Back</Text>
-              </Pressable>
-
-              {searchType === "ride" ? (
-                <RideResultCard
-                  from={fromCity}
-                  to={toCity}
-                  date={dateTime}
-                  rides={rideResults}
-                />
-              ) : (
-                <PassengerResultCard
-                  from={fromCity}
-                  to={toCity}
-                  date={dateTime}
-                  passengers={passengerResults}
-                />
-              )}
-            </>
-          )}
+    <View style={styles.container}>
+      <View style={styles.navbar}>
+        <View style={styles.navbarSide}></View>
+        <View style={styles.navbarCenter}>
+          <Text style={styles.navbarTitle}>pejmo!</Text>
         </View>
-      }
-      contentContainerStyle={{ paddingBottom: 80 }}
-    />
+        <View style={styles.navbarSide}></View>
+      </View>
+      <View style={styles.main}>
+        <View style={styles.mainContent}>
+          <FlatList
+            data={searchResultsVisible ? [] : listings}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <ListingSummary from={item.from} to={item.to} days={item.days} />
+            )}
+            ListHeaderComponent={
+              <View style={styles.container}>
+                <Text style={styles.heading}>I'm looking for a:</Text>
+
+                <View style={styles.toggleContainer}>
+                  <Pressable onPress={() => setSearchType("ride")}>
+                    <Text style={[styles.toggleText, searchType === "ride" && styles.active]}>Ride</Text>
+                  </Pressable>
+
+                  <Pressable onPress={() => setSearchType("passenger")}>
+                    <Text style={[styles.toggleText, searchType === "passenger" && styles.active]}>Passenger</Text>
+                  </Pressable>
+                </View>
+
+                {!searchResultsVisible && (
+                  <>
+                    <FromToSelector
+                      searchType={searchType}
+                      setSearchType={setSearchType}
+                      fromCity={fromCity}
+                      toCity={toCity}
+                      setFromCity={setFromCity}
+                      setToCity={setToCity}
+                    />
+
+                    <DateSelector dateTime={dateTime} setDateTime={setDateTime} />
+                    <SearchButton onPress={fetchSearchResults} />
+                  </>
+                )}
+
+                {searchResultsVisible && (
+                  <>
+                    <Pressable onPress={handleBack} style={styles.backButton}>
+                      <Text style={styles.backButtonText}>← Back</Text>
+                    </Pressable>
+
+                    {searchType === "ride" ? (
+                      <RideResultCard
+                        from={fromCity}
+                        to={toCity}
+                        date={dateTime}
+                        rides={rideResults}
+                      />
+                    ) : (
+                      <PassengerResultCard
+                        from={fromCity}
+                        to={toCity}
+                        date={dateTime}
+                        passengers={passengerResults}
+                      />
+                    )}
+                  </>
+                )}
+              </View>
+            }
+            contentContainerStyle={{ paddingBottom: 80 }}
+          />
+        </View>
+      </View>
+    </View>
+
   );
 }

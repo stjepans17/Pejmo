@@ -67,6 +67,13 @@ export default function ReservationsScreen(): JSX.Element {
   
   return (
     <View style={styles.container}>
+      <View style={styles.navbar}>
+        <View style={styles.navbarSide}></View>
+        <View style={styles.navbarCenter}>
+          <Text style={styles.headerTitle}>pejmo!</Text>
+        </View>
+        <View style={styles.navbarSide}></View>
+      </View>
       <View style={styles.main}>
         <View style={styles.mainTitle}>
           <Text style={styles.heading}>Reservations</Text>

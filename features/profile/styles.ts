@@ -3,8 +3,11 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    padding: 24,
+    // padding: 24,
     backgroundColor: "#F9FAFB",
+  },
+  main: {
+    flex: 11
   },
   title: {
     fontSize: 26,
@@ -82,4 +85,32 @@ export const styles = StyleSheet.create({
   statusInProgress: {
     color: "#2196F3", // Blue
   },
+  navbarTitle: {
+    fontSize: 28,
+    letterSpacing: -2.5,
+    color: '#4600DE'
+  },
+  navbarSide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  navbarCenter: {
+    flex: 3,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 10
+  },
+  navbar: {
+    // flex: 1,
+    height: 90,
+    flexDirection: 'row',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+    zIndex: 10,
+    backgroundColor: "#fff",
+  }
 });
