@@ -4,8 +4,8 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingTop: 20,
-    paddingHorizontal: 16,
+    // paddingTop: 20,
+    // paddingHorizontal: 16,
   },
   heading: {
     fontSize: 24,
@@ -73,4 +73,48 @@ export const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: "600",
   },
+  navbar: {
+    flex: 1,
+    flexDirection: 'row',
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 5,
+    zIndex: 10,
+    backgroundColor: "#fff"
+  },
+  main: {
+    flex: 8,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  navbarSide: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  navbarCenter: {
+    flex: 3,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 9
+  },
+  navbarTitle: {
+    fontSize: 28,
+    letterSpacing: -2.5,
+    color: '#4600DE'
+  },
+  mainTitle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  mainTitleButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  mainRest: {
+    flex: 3
+  }
 });

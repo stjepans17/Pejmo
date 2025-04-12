@@ -9,42 +9,52 @@ import styles from "../../features/home/styles";
 import RNPickerSelect from "react-native-picker-select";
 
 export default function HomeScreen() {
-  const [searchType, setSearchType] = useState<"ride" | "passenger">("ride");
-  // const [fromCity, setFromCity] = useState("");
-  // const [toCity, setToCity] = useState("");
-  const [fromCity, setFromCity] = useState<string>("Ljubljana");
-  const [toCity, setToCity] = useState<string>("Koper");
-  const [dateTime, setDateTime] = useState<Date | null>(null);
+    const [searchType, setSearchType] = useState<"ride" | "passenger">("ride");
+    // const [fromCity, setFromCity] = useState("");
+    // const [toCity, setToCity] = useState("");
+    const [fromCity, setFromCity] = useState<string>("Ljubljana");
+    const [toCity, setToCity] = useState<string>("Koper");
+    const [dateTime, setDateTime] = useState<Date | null>(null);
 
-  return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <RNPickerSelect
-        placeholder={{ label: "Choose city...", value: null }}
-        onValueChange={setToCity}
-        items={[{ label: "Ljubljana", value: "Ljubljana" },]}
-        value={toCity || ""}
-      />
+    return (
+        <View style={styles.screenContainer}>
+            <View style={styles.navbar}>
+                <View style={styles.navbarSide}></View>
+                <View style={styles.navbarCenter}>
+                    <Text style={styles.navbarTitle}>pejmo!</Text>
+                </View>
+                <View style={styles.navbarSide}></View>
+            </View>
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                <RNPickerSelect
+                    placeholder={{ label: "Choose city...", value: null }}
+                    onValueChange={setToCity}
+                    items={[{ label: "Ljubljana", value: "Ljubljana" },]}
+                    value={toCity || ""}
+                />
 
-      <Text style={styles.heading}>I’m looking for a:</Text>
+                <Text style={styles.heading}>I’m looking for a:</Text>
 
-      <FromToSelector
-        searchType={searchType}
-        setSearchType={setSearchType}
-        fromCity={fromCity}
-        toCity={toCity}
-        setFromCity={setFromCity}
-        setToCity={setToCity}
-      />
+                <FromToSelector
+                    searchType={searchType}
+                    setSearchType={setSearchType}
+                    fromCity={fromCity}
+                    toCity={toCity}
+                    setFromCity={setFromCity}
+                    setToCity={setToCity}
+                />
 
-      <DateSelector dateTime={dateTime} setDateTime={setDateTime} />
+                <DateSelector dateTime={dateTime} setDateTime={setDateTime} />
 
-      <SearchButton />
+                <SearchButton />
 
-      {/* Listings */}
-      <ListingSummary from="Ljubljana" to="Koper" />
-      <ListingSummary from="Ljubljana" to="Celje" />
-      <ListingSummary from="Maribor" to="Novo mesto" />
-      <ListingSummary from="Kranj" to="Ljubljana" />
-    </ScrollView>
-  );
+                {/* Listings */}
+                <ListingSummary from="Ljubljana" to="Koper" />
+                <ListingSummary from="Ljubljana" to="Celje" />
+                <ListingSummary from="Maribor" to="Novo mesto" />
+                <ListingSummary from="Kranj" to="Ljubljana" />
+            </ScrollView>
+        </View>
+
+    );
 }
