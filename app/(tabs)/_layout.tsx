@@ -1,23 +1,33 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useSignup } from "@/context/SignupContext";
-// import { Redirect } from "expo-router"; // trenutno ne rabiš
+// import { Redirect } from "expo-router"; // for auth gating
 
 export default function TabLayout() {
   const { isLoggedIn } = useSignup();
 
-  // Za testiranje login flow-a lahko to pustiš izklopljeno:
+  // Uncomment if you want to protect routes
   // if (!isLoggedIn) return <Redirect href="/login" />;
 
   return (
     <Tabs
       screenOptions={({ route }) => ({
         tabBarIcon: ({ color, size }) => {
-          let iconName: keyof typeof Ionicons.glyphMap = "home-outline";
+          let iconName: keyof typeof Ionicons.glyphMap;
 
-          // Zaenkrat imaš samo "home"
-          if (route.name === "home") {
-            iconName = "home-outline";
+          switch (route.name) {
+            case "home":
+              iconName = "home-outline";
+              break;
+            case "reservations":
+              iconName = "home-outline";
+              break;
+            case "profile":
+              iconName = "home-outline";
+              break;
+            default:
+              iconName = "home-outline";
+              break;
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -34,6 +44,8 @@ export default function TabLayout() {
       })}
     >
       <Tabs.Screen name="home" options={{ title: "Home" }} />
+      <Tabs.Screen name="reservations" options={{ title: "Reservations" }} />
+      <Tabs.Screen name="profile" options={{ title: "Profile" }} />
     </Tabs>
   );
 }

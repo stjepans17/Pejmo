@@ -1,59 +1,50 @@
-import { View, StyleSheet, Text } from "react-native";
+// app/(tabs)/home.tsx
+import React, { useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import FromToSelector from "../../features/home/FromToSelector";
+import DateSelector from "../../features/home/DateSelector";
+import SearchButton from "../../features/home/SearchButton";
+import ListingSummary from "../../features/home/ListingSummary";
+import styles from "../../features/home/styles";
+import RNPickerSelect from "react-native-picker-select";
 
 export default function HomeScreen() {
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={[styles.headerSection, { flex: 1, backgroundColor: 'orange' }]}>
-          {/* <ProfileIcon height={'30%'} width={'30%'} /> */}
-        </View>
-        <View style={[styles.headerSection, { flex: 3, backgroundColor: 'green' }]}>
-          {/* <LiftLogicLogo height={'25%'} width={'30%'} /> */}
-        </View>
-        <View style={[styles.headerSection, { flex: 1, backgroundColor: 'red' }]}>
-          {/* <LiftLogicLogo height={'25%'} width={'30%'} /> */}
-        </View>
-      </View>
+  const [searchType, setSearchType] = useState<"ride" | "passenger">("ride");
+  // const [fromCity, setFromCity] = useState("");
+  // const [toCity, setToCity] = useState("");
+  const [fromCity, setFromCity] = useState<string>("Ljubljana");
+  const [toCity, setToCity] = useState<string>("Koper");
+  const [dateTime, setDateTime] = useState<Date | null>(null);
 
-      <View style={styles.main}>
-        <View style={styles.mainContent}>
-          <Text style={{ fontSize: 18 }}>Welcome to Home!</Text>
-        </View>
-      </View>
-    </View>
+  return (
+    <ScrollView contentContainerStyle={styles.container}>
+      <RNPickerSelect
+        placeholder={{ label: "Choose city...", value: null }}
+        onValueChange={setToCity}
+        items={[{ label: "Ljubljana", value: "Ljubljana" },]}
+        value={toCity || ""}
+      />
+
+      <Text style={styles.heading}>I’m looking for a:</Text>
+
+      <FromToSelector
+        searchType={searchType}
+        setSearchType={setSearchType}
+        fromCity={fromCity}
+        toCity={toCity}
+        setFromCity={setFromCity}
+        setToCity={setToCity}
+      />
+
+      <DateSelector dateTime={dateTime} setDateTime={setDateTime} />
+
+      <SearchButton />
+
+      {/* Listings */}
+      <ListingSummary from="Ljubljana" to="Koper" />
+      <ListingSummary from="Ljubljana" to="Celje" />
+      <ListingSummary from="Maribor" to="Novo mesto" />
+      <ListingSummary from="Kranj" to="Ljubljana" />
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-  header: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'white',
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 5,
-    zIndex: 10,
-  },
-  headerSection: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-  },
-  main: {
-    flex: 9,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mainContent: {
-    width: '90%',
-    height: '90%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  }
-});
