@@ -7,9 +7,10 @@ import { handleAccept, handleDecline, handleMessage } from "../../features/reser
 import CustomButton from "@/components/CustomButton";
 
 export default function ReservationsScreen(): JSX.Element {
-  const [chosenButton, setChosenButton] = useState<string>("");
+  const [chosenTab, setChosenTab] = useState<"Sent" | "Received">("Sent");
 
-  const [passengerRequests, setPassengerRequests] = useState<RideItem[]>([
+  // SENT
+  const [sentPassengerRequests, setSentPassengerRequests] = useState<RideItem[]>([
     {
       id: "1",
       user: "Tikei",
@@ -22,8 +23,35 @@ export default function ReservationsScreen(): JSX.Element {
       status: "pending",
     },
   ]);
+  const [sentDriverOffers, setSentDriverOffers] = useState<RideItem[]>([
+    {
+      id: "3",
+      user: "Anže",
+      rating: 5,
+      from: "Celje",
+      to: "Maribor",
+      dateTime: "Friday 17:00",
+      seats: 1,
+      price: 4,
+      status: "pending",
+    },
+  ]);
 
-  const [driverOffers, setDriverOffers] = useState<RideItem[]>([
+  // RECEIVED
+  const [receivedPassengerRequests, setReceivedPassengerRequests] = useState<RideItem[]>([
+    {
+      id: "4",
+      user: "Maja",
+      rating: 4,
+      from: "Kranj",
+      to: "Ljubljana",
+      dateTime: "Monday 08:00",
+      seats: 2,
+      price: 6,
+      status: "pending",
+    },
+  ]);
+  const [receivedDriverOffers, setReceivedDriverOffers] = useState<RideItem[]>([
     {
       id: "2",
       user: "Tomaž",
@@ -36,41 +64,32 @@ export default function ReservationsScreen(): JSX.Element {
       status: "pending",
     },
   ]);
-
+  
   return (
     <View style={styles.container}>
-      <View style={styles.navbar}>
-        <View style={styles.navbarSide}></View>
-        <View style={styles.navbarCenter}>
-          <Text style={styles.navbarTitle}>pejmo!</Text>
-        </View>
-        <View style={styles.navbarSide}></View>
-      </View>
       <View style={styles.main}>
         <View style={styles.mainTitle}>
           <Text style={styles.heading}>Reservations</Text>
           <View style={styles.mainTitleButtons}>
             <CustomButton
               title="Sent"
-              onPress={() => setChosenButton("Sent")}
+              onPress={() => setChosenTab("Sent")}
               backgroundColor="#FFF"
-              textColor={chosenButton === "Sent" ? "#4600DE" : "#000"}
+              textColor={chosenTab === "Sent" ? "#4600DE" : "#000"}
               fontSize={14}
               padding={12}
               borderRadius={10}
-              width={'40%'}
-              height={'80%'}
               style={{
                 borderWidth: 2,
-                borderColor: chosenButton === "Sent" ? "#4600DE" : "#D8D8DC",
+                borderColor: chosenTab === "Sent" ? "#4600DE" : "#D8D8DC",
               }}
             />
 
             <CustomButton
               title="Received"
-              onPress={() => setChosenButton("Received")}
+              onPress={() => setChosenTab("Received")}
               backgroundColor="#FFF"
-              textColor={chosenButton === "Received" ? "#4600DE" : "#000"}
+              textColor={chosenTab === "Received" ? "#4600DE" : "#000"}
               fontSize={14}
               padding={12}
               borderRadius={10}
@@ -78,55 +97,104 @@ export default function ReservationsScreen(): JSX.Element {
               height={'80%'}
               style={{
                 borderWidth: 2,
-                borderColor: chosenButton === "Received" ? "#4600DE" : "#D8D8DC",
+                borderColor: chosenTab === "Received" ? "#4600DE" : "#D8D8DC",
               }}
             />
           </View>
         </View>
 
         <View style={styles.mainRest}>
-          <Text style={styles.sectionTitle}>Passenger requests</Text>
-          {passengerRequests.length === 0 ? (
-            <Text style={styles.emptyText}>You have no passenger requests</Text>
-          ) : (
-            <FlatList
-              data={passengerRequests}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <RideCard
-                  item={item}
-                  isPassenger={true}
-                  onAccept={() => handleAccept(item.id, true, setPassengerRequests)}
-                  onDecline={() => handleDecline(item.id, true, setPassengerRequests)}
-                  onMessage={() => handleMessage(item.user)}
+          {chosenTab === "Sent" ? (
+            <>
+              <Text style={styles.sectionTitle}>Your Passenger Requests</Text>
+              {sentPassengerRequests.length === 0 ? (
+                <Text style={styles.emptyText}>No passenger requests sent</Text>
+              ) : (
+                <FlatList
+                  horizontal
+                  data={sentPassengerRequests}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <RideCard
+                      item={item}
+                      isPassenger={true}
+                      onAccept={() => handleAccept(item.id, true, setSentPassengerRequests)}
+                      onDecline={() => handleDecline(item.id, true, setSentPassengerRequests)}
+                      onMessage={() => handleMessage(item.user)}
+                    />
+                  )}
+                  contentContainerStyle={styles.listContent}
                 />
               )}
-              contentContainerStyle={styles.listContent}
-            />
-          )}
 
-          <Text style={styles.sectionTitle}>Driver offers</Text>
-          {driverOffers.length === 0 ? (
-            <Text style={styles.emptyText}>You have no driver offers</Text>
-          ) : (
-            <FlatList
-              data={driverOffers}
-              keyExtractor={(item) => item.id}
-              renderItem={({ item }) => (
-                <RideCard
-                  item={item}
-                  isPassenger={false}
-                  onAccept={() => handleAccept(item.id, false, setDriverOffers)}
-                  onDecline={() => handleDecline(item.id, false, setDriverOffers)}
-                  onMessage={() => handleMessage(item.user)}
+              <Text style={styles.sectionTitle}>Your Driver Offers</Text>
+              {sentDriverOffers.length === 0 ? (
+                <Text style={styles.emptyText}>No driver offers sent</Text>
+              ) : (
+                <FlatList
+                  horizontal
+                  data={sentDriverOffers}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <RideCard
+                      item={item}
+                      isPassenger={false}
+                      onAccept={() => handleAccept(item.id, false, setSentDriverOffers)}
+                      onDecline={() => handleDecline(item.id, false, setSentDriverOffers)}
+                      onMessage={() => handleMessage(item.user)}
+                    />
+                  )}
+                  contentContainerStyle={styles.listContent}
                 />
               )}
-              contentContainerStyle={styles.listContent}
-            />
+            </>
+          ) : (
+            <>
+              <Text style={styles.sectionTitle}>Passenger Requests Received</Text>
+              {receivedPassengerRequests.length === 0 ? (
+                <Text style={styles.emptyText}>No passenger requests received</Text>
+              ) : (
+                <FlatList
+                  horizontal
+                  data={receivedPassengerRequests}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <RideCard
+                      item={item}
+                      isPassenger={true}
+                      onAccept={() => handleAccept(item.id, true, setReceivedPassengerRequests)}
+                      onDecline={() => handleDecline(item.id, true, setReceivedPassengerRequests)}
+                      onMessage={() => handleMessage(item.user)}
+                    />
+                  )}
+                  contentContainerStyle={styles.listContent}
+                />
+              )}
+
+              <Text style={styles.sectionTitle}>Driver Offers Received</Text>
+              {receivedDriverOffers.length === 0 ? (
+                <Text style={styles.emptyText}>No driver offers received</Text>
+              ) : (
+                <FlatList
+                  horizontal
+                  data={receivedDriverOffers}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <RideCard
+                      item={item}
+                      isPassenger={false}
+                      onAccept={() => handleAccept(item.id, false, setReceivedDriverOffers)}
+                      onDecline={() => handleDecline(item.id, false, setReceivedDriverOffers)}
+                      onMessage={() => handleMessage(item.user)}
+                    />
+                  )}
+                  contentContainerStyle={styles.listContent}
+                />
+              )}
+            </>
           )}
         </View>
       </View>
-
     </View>
   );
 }

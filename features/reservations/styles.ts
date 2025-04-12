@@ -3,118 +3,167 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    // paddingTop: 20,
-    // paddingHorizontal: 16,
+    backgroundColor: "#F9F9F9",
   },
+
   heading: {
     fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 16,
+    fontWeight: "700",
+    marginBottom: 20,
+    marginTop: 12,
     textAlign: "center",
+    color: "#222",
   },
+
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
-    marginTop: 8,
+    marginTop: 16,
     marginBottom: 8,
+    paddingHorizontal: 16,
+    color: "#333",
   },
+
   emptyText: {
-    color: "#888",
-    marginVertical: 8,
-  },
-  listContent: {
-    paddingBottom: 20,
-  },
-  card: {
-    backgroundColor: "#f9f9f9",
-    borderRadius: 8,
-    padding: 16,
-    marginBottom: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  cardSub: {
-    fontSize: 14,
-    marginVertical: 2,
-  },
-  cardActions: {
-    flexDirection: "row",
-    justifyContent: "space-evenly",
+    color: "#999",
+    textAlign: "center",
     marginTop: 12,
   },
+
+  listContent: {
+    paddingHorizontal: 16,
+    paddingBottom: 40,
+  },
+
+  card: {
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    color: "#222",
+    marginBottom: 2,
+  },
+
+  cardSub: {
+    fontSize: 14,
+    color: "#555",
+    marginVertical: 1,
+  },
+
+  cardActions: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 6,
+    gap: 3,
+  },
+
   acceptButton: {
-    backgroundColor: "#4CAF50",
     paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 4,
-  },
-  declineButton: {
-    backgroundColor: "#F44336",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 4,
-  },
+    paddingHorizontal: 10,
+    backgroundColor: "#E8E8FF",
+    borderRadius: 6,  },
+  
   messageButton: {
-    backgroundColor: "#2196F3",
     paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 4,
-  },
+    paddingHorizontal: 10,
+    backgroundColor: "#E8E8FF",
+    borderRadius: 6,  },
+  
   buttonText: {
-    color: "#fff",
+    fontSize: 13,
     fontWeight: "600",
+    color: "#4600DE", // unified for all
   },
+
+  declineButton: {
+    backgroundColor: "none",
+    borderColor: "#F44336",
+    borderWidth: 2,
+    color: "#fff",
+    paddingVertical: 3,
+    paddingHorizontal: 10,
+    borderRadius: 6,
+  },
+
+  declineButtonText: {
+    color: "#F44336"
+  },
+  
+  // Navbar
+
   navbar: {
-    flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
+    paddingTop: 16,
+    paddingBottom: 12,
+    paddingHorizontal: 20,
     shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 5,
-    zIndex: 10,
-    backgroundColor: "#fff"
+    shadowOpacity: 0.05,
+    shadowRadius: 6,
+    elevation: 3,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  main: {
-    flex: 8,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
+
   navbarSide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: "center",
   },
+
   navbarCenter: {
     flex: 3,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    marginBottom: 9
+    alignItems: "center",
   },
+
   navbarTitle: {
-    fontSize: 28,
-    letterSpacing: -2.5,
-    color: '#4600DE'
+    fontSize: 26,
+    fontWeight: "700",
+    letterSpacing: -1,
+    color: "#4600DE",
   },
-  mainTitle: {
+
+  main: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingTop: 10,
+    paddingHorizontal: 16,
   },
+
+  mainTitle: {
+    marginBottom: 10,
+    alignItems: "center",
+  },
+
   mainTitleButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 12,
   },
+
   mainRest: {
-    flex: 3
-  }
+    flex: 1,
+    marginTop: 12,
+  },
+  stars: {
+    color: "#FBBF24", // gold but warmer
+    fontSize: 14,
+  },
+
+  button: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    backgroundColor: "#E8E8FF",
+    borderRadius: 6,
+    marginRight: 6,
+  },
 });

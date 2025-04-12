@@ -21,10 +21,8 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   backgroundColor = "#4600DE",
   textColor = "white",
   fontSize = 16,
-  padding = 16,
+  padding = 8,
   borderRadius = 16,
-  width = "100%",
-  height = "100%",
   style
 }) => {
   return (
@@ -32,7 +30,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       style={[
         styles.container,
         style,
-        { backgroundColor, padding, borderRadius, width, height } as ViewStyle, 
+        { backgroundColor, padding, borderRadius } as ViewStyle, 
       ]}
       onPress={onPress}
       activeOpacity={0.8}

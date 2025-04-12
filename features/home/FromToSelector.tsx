@@ -111,8 +111,8 @@ export default function FromToSelector({
 
 export const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    gap: 16,
+    marginTop: 4,
+    gap: 8,
   },
   label: {
     fontWeight: "600",
