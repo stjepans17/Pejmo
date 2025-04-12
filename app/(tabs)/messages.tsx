@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, FlatList, Pressable } from "react-native";
 import { styles } from "../../features/home/styles";
+import { useRouter } from "expo-router";
 
 interface Message {
   id: string;
@@ -10,6 +11,7 @@ interface Message {
 }
 
 export default function MessagesScreen() {
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export default function MessagesScreen() {
               localStyles.messageCard,
               item.unread && localStyles.unread,
             ]}
-            onPress={() => alert(`Open chat with ${item.name}`)}
+            onPress={() => router.push('/chats/chat')}
           >
             <Text style={localStyles.name}>{item.name}</Text>
             <Text style={localStyles.preview}>{item.preview}</Text>
