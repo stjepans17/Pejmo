@@ -67,8 +67,6 @@ export const styles = StyleSheet.create({
     padding: 20,
     flexGrow: 1,
   },
-});
-
   backButton: {
     marginTop: 10,
     marginBottom: 10,
