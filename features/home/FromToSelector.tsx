@@ -53,6 +53,7 @@ export default function FromToSelector({
           setShowFromSuggestions(true);
         }}
         onFocus={() => setShowFromSuggestions(true)}
+        onBlur={() => setFromCity(fromQuery)} // 🆕 update home screen state
         placeholder="Start typing..."
         style={styles.input}
       />
@@ -84,6 +85,7 @@ export default function FromToSelector({
           setShowToSuggestions(true);
         }}
         onFocus={() => setShowToSuggestions(true)}
+        onBlur={() => setToCity(toQuery)} // 🆕 update home screen state
         placeholder="Start typing..."
         style={styles.input}
       />

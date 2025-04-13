@@ -40,7 +40,7 @@ export default function AddListingScreen() {
 					<View style={styles.navbarSide}></View>
 				</View>
 				<View style={{padding: 20}}>
-					<Text style={sharedStyles.heading}>I'm looking for a:</Text>
+					<Text style={sharedStyles.heading}>I am:</Text>
 
 					<View style={sharedStyles.toggleContainer}>
 						<Pressable onPress={() => setType("ride")}>
@@ -51,7 +51,7 @@ export default function AddListingScreen() {
 
 						<Pressable onPress={() => setType("passenger")}>
 							<Text style={[sharedStyles.toggleText, type === "passenger" && sharedStyles.active]}>
-								Ride
+								Driver
 							</Text>
 						</Pressable>
 					</View>

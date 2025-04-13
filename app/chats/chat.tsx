@@ -55,10 +55,8 @@ export default function ChatScreen() {
                 <View style={styles.navbarSide}></View>
             </View>
 
-            {/* Centrirano ime */}
             <Text style={localStyles.chatWithText}>Tomaz</Text>
 
-            {/* Glavni del – pogovor */}
             <View style={localStyles.main}>
                 <View style={localStyles.visualBoxChat}>
                     <ScrollView
@@ -92,7 +90,6 @@ export default function ChatScreen() {
                 </View>
             </View>
 
-            {/* Input in gumb */}
             <View style={localStyles.under}>
                 <View style={localStyles.underContent}>
                     <View style={localStyles.visualBox}>
@@ -137,7 +134,7 @@ const localStyles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         color: '#333',
-        marginTop: 22,           // 🆕 več prostora od navbarja
+        marginTop: 22,          
         paddingHorizontal: 20,
         paddingBottom: 4,
         textAlign: 'center',

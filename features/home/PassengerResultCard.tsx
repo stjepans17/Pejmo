@@ -34,7 +34,12 @@ export default function PassengerResultCard({ from, to, date, passengers }: Prop
       {passengers.map((p) => (
         <View key={p.id} style={styles.rideRow}>
           <View style={styles.leftColumn}>
-            <Text style={styles.time}>{p.time}</Text>
+            <Text style={styles.time}>
+              {new Date(p.time).toLocaleTimeString("sl-SI", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })}
+            </Text>
           </View>
 
           <View style={styles.centerColumn}>
