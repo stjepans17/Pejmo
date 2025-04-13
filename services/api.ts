@@ -1,6 +1,5 @@
 import { apiClient } from "./apiClient";
 
-// ===== USER =====
 export interface RegisterUserDTO {
   username: string;
   password: string;
@@ -34,7 +33,9 @@ export const registerUser = async (dto: RegisterUserDTO): Promise<void> => {
   }
 };
 
-export const getUserByUsername = async (username: string): Promise<UserGetDTO> => {
+export const getUserByUsername = async (
+  username: string
+): Promise<UserGetDTO> => {
   try {
     const response = await apiClient.get(`/users/${username}`);
     return response.data;
@@ -44,7 +45,6 @@ export const getUserByUsername = async (username: string): Promise<UserGetDTO> =
   }
 };
 
-// ===== PASSENGERS =====
 export interface RideOfferDTO {
   id: number;
   firstName: string;
@@ -80,7 +80,6 @@ export const getAllPassengers = async (
   toLocation = "",
   startTime: string
 ): Promise<PassengerGetDTO[]> => {
-  console.log(`data: ${fromLocation} | ${toLocation} | ${startTime}`);
   try {
     const response = await apiClient.get("/passengers", {
       params: { fromLocation, toLocation, startTime },
@@ -92,7 +91,9 @@ export const getAllPassengers = async (
   }
 };
 
-export const getPassengerByUsername = async (username: string): Promise<PassengerGetDTO> => {
+export const getPassengerByUsername = async (
+  username: string
+): Promise<PassengerGetDTO> => {
   try {
     const response = await apiClient.get(`/passengers/${username}`);
     return response.data;
@@ -102,7 +103,9 @@ export const getPassengerByUsername = async (username: string): Promise<Passenge
   }
 };
 
-export const createPassenger = async (dto: PassengerCreateDTO): Promise<void> => {
+export const createPassenger = async (
+  dto: PassengerCreateDTO
+): Promise<void> => {
   try {
     await apiClient.post("/passengers", dto);
   } catch (error) {
@@ -111,7 +114,12 @@ export const createPassenger = async (dto: PassengerCreateDTO): Promise<void> =>
   }
 };
 
-export const offerRide = async (username: string, passengerId: number): Promise<void> => {
+// Offer a ride to a passenger
+// Ta username je uni ki ponudi drive
+export const offerRide = async (
+  username: string,
+  passengerId: number
+): Promise<void> => {
   try {
     await apiClient.post(`/passengers/${username}/offer/${passengerId}`);
   } catch (error) {
@@ -120,7 +128,11 @@ export const offerRide = async (username: string, passengerId: number): Promise<
   }
 };
 
-export const acceptOfferedRide = async (username: string, offerId: number): Promise<void> => {
+// Accept a ride offer as a passenger
+export const acceptOfferedRide = async (
+  username: string,
+  offerId: number
+): Promise<void> => {
   try {
     await apiClient.post(`/passengers/${username}/offer/${offerId}/accept`);
   } catch (error) {
@@ -129,49 +141,176 @@ export const acceptOfferedRide = async (username: string, offerId: number): Prom
   }
 };
 
-export const getAcceptedOffersByDriver = async (username: string): Promise<RideOfferDTO[]> => {
+// Get all accepted ride offers by a driver
+// Vse acceptane od username user
+export const getAcceptedOffersByDriver = async (
+  username: string
+): Promise<RideOfferDTO[]> => {
   try {
-    const response = await apiClient.get(`/passengers/offers/${username}/accepted`);
+    const response = await apiClient.get(
+      `/passengers/offers/${username}/accepted`
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error fetching accepted offers for driver ${username}:`, error);
+    console.error(
+      `Error fetching accepted offers for driver ${username}:`,
+      error
+    );
     throw error;
   }
 };
 
-// ===== RIDES =====
-export interface RideGetDTO {
-    id: number;
-    startTime: string; 
-    fromLocation: string;
-    toLocation: string;
-    price: number;
-    allSeats: number;
-    takenSeats: number;
-    pickUpPoints: any[];
-    driver: {
-      username: string;
-      firstName: string;
-      lastName: string;
-      averageRating: number;
-    };
-  }
-  
+export interface SimpleUserDTO {
+  firstName: string;
+  lastName: string;
+  username: string;
+  averageRating: number;
+}
 
+export interface LocationPointDTO {
+  latitude: number;
+  longitude: number;
+  name: string;
+}
+
+export interface RideOutputDTO {
+  id: number;
+  driver: SimpleUserDTO;
+  fromLocation: string;
+  toLocation: string;
+  startTime: string;
+  price: number;
+  allSeats: number;
+  takenSeats: number;
+  pickUpPoints: LocationPointDTO[];
+}
+
+// get all available rides
+// filters: fromLocation, toLocation, startTime
 export const getAllRides = async (
   fromLocation = "",
   toLocation = "",
   startTime: string
-): Promise<RideGetDTO[]> => {
+): Promise<RideOutputDTO[]> => {
   try {
-    console.log(`${fromLocation} ${toLocation} ${startTime}`)
     const response = await apiClient.get("/rides", {
       params: { fromLocation, toLocation, startTime },
     });
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching rides:", error);
     throw error;
   }
+}
+
+// get one ride by id
+export const getRideById = async (rideId: number): Promise<RideOutputDTO> => {
+  try {
+    const response = await apiClient.get(`/rides/${rideId}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching ride with ID ${rideId}:`, error);
+    throw error;
+  }
+}
+
+export interface RideInputDTO {
+  username: string;
+  fromLocation: string;
+  toLocation: string;
+  startTime: string;
+  price: number;
+  allSeats: number;
+}
+
+// create a new ride
+export const createRide = async (dto: RideInputDTO): Promise<RideOutputDTO> => {
+  try {
+    const response = await apiClient.post("/rides", dto);
+    return response.data;
+  } catch (error) {
+    console.error("Error creating ride:", error);
+    throw error;
+  }
 };
+
+export interface PassengerRequestDTO {
+  id: number;
+  passenger: SimpleUserDTO;
+  rideListingId: number;
+  requestStatus: string;
+}
+
+// user requests to be passenger in a ride
+export const requestRide = async (
+  username: string,
+  rideId: number
+): Promise<PassengerRequestDTO> => {
+  try {
+    const response = await apiClient.post(
+      `/rides/${username}/request/${rideId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error requesting ride with ID ${rideId}:`, error);
+    throw error;
+  }
+}
+
+// get all requests for a ride
+export const getRideRequests = async (
+  rideId: number
+): Promise<PassengerRequestDTO[]> => {
+  try {
+    const response = await apiClient.get(`/rides/${rideId}/requests`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching ride requests for ID ${rideId}:`, error);
+    throw error;
+  }
+}
+
+// accept a ride request from a passenger
+export const acceptRideRequest = async (
+  requestId: number
+): Promise<PassengerRequestDTO> => {
+  try {
+    const response = await apiClient.put(
+      `/rides/accept/${requestId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error accepting ride request with ID ${requestId}:`, error);
+    throw error;
+  }
+}
+
+// get all accepted passengers
+export const getPassengers = async (
+  rideId: number
+): Promise<SimpleUserDTO[]> => {
+  try {
+    const response = await apiClient.get(`/rides/${rideId}/passengers`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching passengers for ride ID ${rideId}:`, error);
+    throw error;
+  }
+}
+
+// add a pickup point to a ride
+export const addPickUpPoint = async (
+  rideId: number,
+  dto: LocationPointDTO
+): Promise<RideOutputDTO> => {
+  try {
+    const response = await apiClient.put(
+      `/rides/${rideId}/pickUpPoint`,
+      dto
+    );
+    return response.data;
+  } catch (error) {
+    console.error(`Error adding pickup point for ride ID ${rideId}:`, error);
+    throw error;
+  }
+}
