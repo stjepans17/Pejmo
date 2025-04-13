@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
+import { View, Text, ScrollView, TextInput, Pressable, StyleSheet, Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import MapView, { Marker, MapPressEvent } from "react-native-maps";
 import { styles as sharedStyles } from "../../features/home/styles";
-import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { styles } from "../../features/home/styles";
 
 export default function AddListingScreen() {
@@ -13,10 +13,15 @@ export default function AddListingScreen() {
 	const [showPicker, setShowPicker] = useState(false);
 	const [price, setPrice] = useState("");
 	const [seats, setSeats] = useState("");
+	const [pickupPoint, setPickupPoint] = useState<{ latitude: number; longitude: number } | null>(null);
+
+	const handleMapPress = (event: MapPressEvent) => {
+		setPickupPoint(event.nativeEvent.coordinate);
+	};
 
 	const handleSubmit = () => {
-		if (!fromCity || !toCity || !price || !seats) {
-			Alert.alert("Please fill in all fields");
+		if (!fromCity || !toCity || !price || !seats || !pickupPoint) {
+			Alert.alert("Please fill in all fields and select a pickup point");
 			return;
 		}
 
@@ -27,10 +32,12 @@ export default function AddListingScreen() {
 		setPrice("");
 		setSeats("");
 		setDateTime(new Date());
+		setPickupPoint(null);
 	};
 
 	return (
-		<TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+			<ScrollView contentContainerStyle={{ padding: 20 }} keyboardShouldPersistTaps="handled">
 			<View style={localStyles.container}>
 				<View style={localStyles.navbar}>
 					<View style={styles.navbarSide}></View>
@@ -39,7 +46,8 @@ export default function AddListingScreen() {
 					</View>
 					<View style={styles.navbarSide}></View>
 				</View>
-				<View style={{padding: 20}}>
+
+				<View style={{ padding: 20 }}>
 					<Text style={sharedStyles.heading}>I am:</Text>
 
 					<View style={sharedStyles.toggleContainer}>
@@ -106,21 +114,52 @@ export default function AddListingScreen() {
 						keyboardType="numeric"
 					/>
 
+					<Text style={sharedStyles.label}>Pickup Point</Text>
+					<MapView
+						style={localStyles.map}
+						initialRegion={{
+							latitude: 46.056946,
+							longitude: 14.505751,
+							latitudeDelta: 0.05,
+							longitudeDelta: 0.05,
+						}}
+						onPress={handleMapPress}
+					>
+						{pickupPoint && <Marker coordinate={pickupPoint} />}
+					</MapView>
+
 					<Pressable onPress={handleSubmit} style={localStyles.button}>
 						<Text style={localStyles.buttonText}>Add Listing</Text>
 					</Pressable>
 				</View>
-
 			</View>
+			</ScrollView>
 		</TouchableWithoutFeedback>
 	);
 }
 
 const localStyles = StyleSheet.create({
 	container: {
-		// padding: 20,
 		backgroundColor: "#f9f9f9",
 		flex: 1,
+	},
+	navbar: {
+		height: 90,
+		flexDirection: "row",
+		shadowColor: "#000",
+		shadowOffset: { width: 0, height: 4 },
+		shadowOpacity: 0.1,
+		shadowRadius: 3,
+		elevation: 5,
+		zIndex: 10,
+		backgroundColor: "#fff",
+		width: "100%",
+	},
+	map: {
+		width: "100%",
+		height: 200,
+		marginTop: 10,
+		borderRadius: 8,
 	},
 	button: {
 		backgroundColor: "#4600DE",
@@ -133,17 +172,5 @@ const localStyles = StyleSheet.create({
 		textAlign: "center",
 		fontWeight: "600",
 		fontSize: 16,
-	},
-	navbar: {
-		height: 90,
-		flexDirection: 'row',
-		shadowColor: "#000",
-		shadowOffset: { width: 0, height: 4 },
-		shadowOpacity: 0.1,
-		shadowRadius: 3,
-		elevation: 5,
-		zIndex: 10,
-		backgroundColor: "#fff",
-		width: '100%'
 	},
 });

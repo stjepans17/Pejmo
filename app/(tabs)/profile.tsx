@@ -25,7 +25,7 @@ export default function ProfileScreen(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`${HOST}/users/bob`)
+    fetch(`${HOST}/users/bojan`)
       .then(res => res.json())
       .then(data => {
         setUser(data);
@@ -55,7 +55,7 @@ export default function ProfileScreen(): JSX.Element {
 
   const getStatusStyle = (status: string) => {
     switch (status.toLowerCase()) {
-      case "completed":
+      case "validated":
         return [styles.statusText, styles.statusCompleted];
       case "declined":
         return [styles.statusText, styles.statusDeclined];
