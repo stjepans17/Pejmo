@@ -98,18 +98,18 @@ export const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 5,
     borderColor: "#FF5252",
-    borderWidth: 2,
+    borderWidth: 1,
     borderRadius: 6,
   },
   redButtonText: {
     color: "#FF5252",
-    fontWeight: "bold",
+    // fontWeight: "bold",
   },
 
   declineButton: {
     backgroundColor: "none",
     borderColor: "#F44336",
-    borderWidth: 2,
+    borderWidth: 1,
     color: "#fff",
     borderRadius: 6,
     paddingVertical: 6,
@@ -150,13 +150,12 @@ export const styles = StyleSheet.create({
     marginBottom: 10
   },
   headerTitle: {
-    letterSpacing: -2.5,
     color: '#4600DE',
     fontSize: 28,
   },
   navbarTitle: {
     fontSize: 28,
-    letterSpacing: -2.5,
+    // letterSpacing: -2.5,
     color: '#4600DE'
   },
 
@@ -196,4 +195,45 @@ export const styles = StyleSheet.create({
     borderRadius: 6,
     marginRight: 6,
   },
+
+  toggleContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 10,
+    marginBottom: 12,
+  },
+  toggleText: {
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    fontWeight: "600",
+    fontSize: 16,
+    color: "#666",
+    borderRadius: 6,
+  },
+  active: {
+    color: "#4600DE",
+    backgroundColor: "#E8E8FF",
+  },
+  trackingContainer: {
+    margin: 16,
+    padding: 16,
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    elevation: 2,
+  },
+  backButton: {
+    alignSelf: "flex-start",
+    marginBottom: 12,
+    backgroundColor: "#E8E8FF",
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 6,
+  },
+  
+  backButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#4600DE",
+  },
+
 });

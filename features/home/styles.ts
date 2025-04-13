@@ -71,7 +71,7 @@ export const styles = StyleSheet.create({
   },
   navbarTitle: {
     fontSize: 28,
-    letterSpacing: -2.5,
+    // letterSpacing: -2.5,
     color: '#4600DE'
   },
   screenContainer: {

@@ -87,7 +87,7 @@ export const styles = StyleSheet.create({
   },
   navbarTitle: {
     fontSize: 28,
-    letterSpacing: -2.5,
+    // letterSpacing: -2.5,
     color: '#4600DE'
   },
   navbarSide: {
@@ -112,5 +112,42 @@ export const styles = StyleSheet.create({
     elevation: 5,
     zIndex: 10,
     backgroundColor: "#fff",
-  }
+  },
+  kycButton: {
+    backgroundColor: "#4600DE",
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 10,
+    alignSelf: "flex-start",
+  },
+  kycButtonText: {
+    color: "#fff",
+    fontWeight: "600",
+  },
+  uploadButton: {
+    backgroundColor: "#E8E8FF",
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    marginBottom: 12,
+    alignItems: "center",
+  },
+  
+  uploadButtonText: {
+    fontSize: 14,
+    fontWeight: "600",
+    color: "#4600DE",
+  },
+  
+  kycImage: {
+    width: "100%",
+    height: 180,
+    borderRadius: 10,
+    marginTop: 8,
+    marginBottom: 12,
+    resizeMode: "cover",
+    borderWidth: 1,
+    borderColor: "#ccc",
+  },
 });

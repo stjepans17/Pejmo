@@ -115,7 +115,7 @@ export default function AddListingScreen() {
 					</View>
 
 					<View style={{ padding: 20 }}>
-						<Text style={sharedStyles.heading}>What’s your role?</Text>
+						<Text style={sharedStyles.heading}>What's your role?</Text>
 
 						<View style={sharedStyles.toggleContainer}>
 							<Pressable onPress={() => setType("passenger")}>
@@ -154,7 +154,7 @@ export default function AddListingScreen() {
 						{showPicker && (
 							<DateTimePicker
 								value={dateTime}
-								mode="date"
+								mode="datetime"
 								display="default"
 								onChange={(event, selectedDate) => {
 									setShowPicker(false);
@@ -162,6 +162,17 @@ export default function AddListingScreen() {
 								}}
 							/>
 						)}
+						{/* {showPicker && (
+							<DateTimePicker
+								value={dateTime}
+								mode="time"
+								display="default"
+								onChange={(event, selectedDate) => {
+									// setShowPicker(false);
+									if (selectedDate) setDateTime(selectedDate);
+								}}
+							/>
+						} */}
 
 						<Text style={sharedStyles.label}>Price (€)</Text>
 						<TextInput
