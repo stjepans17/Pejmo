@@ -57,8 +57,9 @@ export const styles = StyleSheet.create({
   },
   navbarSide: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 10
   },
   navbarCenter: {
     flex: 3,

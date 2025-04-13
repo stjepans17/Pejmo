@@ -25,7 +25,7 @@ export default function ProfileScreen(): JSX.Element {
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(`${HOST}/users/1`)
+    fetch(`${HOST}/users/bob`)
       .then(res => res.json())
       .then(data => {
         setUser(data);
