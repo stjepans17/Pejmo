@@ -38,7 +38,7 @@ export default function RideResultCard({ from, to, date, rides }: Props) {
           </View>
 
           <View style={styles.centerColumn}>
-            <Text style={styles.driver}>{ride.driver} •{" "}
+            <Text style={styles.driver}>{ride.driver} {" "}
                 <Text style={styles.stars}>{renderStars(ride.rating)}</Text>
             </Text>
             <View style={styles.buttonRow}>

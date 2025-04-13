@@ -81,9 +81,14 @@ export const getAllPassengers = async (
   startTime: string
 ): Promise<PassengerGetDTO[]> => {
   try {
-    const response = await apiClient.get("/passengers", {
-      params: { fromLocation, toLocation, startTime },
-    });
+    const params = { fromLocation, toLocation, startTime };
+    const queryString = new URLSearchParams(params).toString();
+    const fullUrl = `${apiClient.defaults.baseURL}/passengers?${queryString}`;
+
+    console.log("Requesting URL:", fullUrl);
+
+    const response = await apiClient.get("/passengers", { params });
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching passengers:", error);
@@ -193,15 +198,24 @@ export const getAllRides = async (
   startTime: string
 ): Promise<RideOutputDTO[]> => {
   try {
+    const params = { fromLocation, toLocation, startTime };
+    const queryString = new URLSearchParams(params).toString();
+    const fullUrl = `${apiClient.defaults.baseURL}/rides?${queryString}`;
+
+    console.log("Requesting URL:", fullUrl);
+
     const response = await apiClient.get("/rides", {
-      params: { fromLocation, toLocation, startTime },
+      params,
     });
+
+    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching rides:", error);
     throw error;
   }
-}
+};
+
 
 // get one ride by id
 export const getRideById = async (rideId: number): Promise<RideOutputDTO> => {

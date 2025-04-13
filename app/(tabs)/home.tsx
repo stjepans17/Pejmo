@@ -275,7 +275,10 @@ export default function HomeScreen() {
       }
     } else {
       try {
-        const isoDate = dateTime.toISOString().split(".")[0];
+        const localDate = new Date(dateTime);
+        localDate.setHours(0, 0, 0, 0); // force time to 00:00:00.000
+
+        const isoDate = localDate.toISOString().split(".")[0];
         const passengers = await getAllPassengers(fromCity, toCity, isoDate);
 
         const mapped = passengers.map((p) => ({

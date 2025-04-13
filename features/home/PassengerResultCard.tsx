@@ -43,7 +43,7 @@ export default function PassengerResultCard({ from, to, date, passengers }: Prop
           </View>
 
           <View style={styles.centerColumn}>
-            <Text style={styles.driver}>{p.passenger} •{" "}
+            <Text style={styles.driver}>{p.passenger} {" "}
               <Text style={styles.stars}>{renderStars(p.rating)}</Text>
             </Text>
             <View style={styles.buttonRow}>
