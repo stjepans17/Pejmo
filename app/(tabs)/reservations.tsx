@@ -176,7 +176,7 @@ export default function ReservationsScreen(): JSX.Element {
         </Pressable>
         <Text style={styles.heading}>Tracking {trackingDriver}</Text>
         <MapView
-          style={{ width: "100%", height: 400 }}
+          style={{ width: "100%", height: "85%" }}
           initialRegion={{
             latitude: 46.0569,
             longitude: 14.5058,
@@ -272,7 +272,6 @@ export default function ReservationsScreen(): JSX.Element {
                     item={item}
                     onMessage={() => {}}
                     onDelete={() => handleDecline(item.id, false, setSentDriverOffers)}
-                    onTrack={() => setTrackingDriver(item.user)}
                   />
                 )}
                 ItemSeparatorComponent={() => <View style={{ width: 12 }} />}
@@ -309,7 +308,8 @@ export default function ReservationsScreen(): JSX.Element {
                     onAccept={() => handleAccept(item.id, false, setReceivedDriverOffers)}
                     onDecline={() => handleDecline(item.id, false, setReceivedDriverOffers)}
                     onMessage={() => handleMessage(item.user)}
-                    onTrack={() => handleTrack(item.id)}
+                    // onTrack={() => handleTrack(item.id)}
+                    onTrack={() => setTrackingDriver(item.user)}
                   />
                 )}
                 ItemSeparatorComponent={() => <View style={{ width: 12 }} />}

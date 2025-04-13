@@ -9,8 +9,8 @@ export const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     fontWeight: "700",
-    marginBottom: 20,
-    marginTop: 12,
+    marginBottom: 6,
+    marginTop: 6,
     textAlign: "center",
     color: "#222",
   },
@@ -222,18 +222,16 @@ export const styles = StyleSheet.create({
     elevation: 2,
   },
   backButton: {
+    marginTop: 4,
+    marginLeft: 10,
+    // marginBottom: 10,
     alignSelf: "flex-start",
-    marginBottom: 12,
-    backgroundColor: "#E8E8FF",
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
   },
-  
   backButtonText: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: 16,
     color: "#4600DE",
+    fontWeight: "600",
   },
+
 
 });

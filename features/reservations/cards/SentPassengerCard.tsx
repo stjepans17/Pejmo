@@ -22,7 +22,8 @@ export default function SentPassengerCard({
         isPassenger={true}
         onDelete={onDelete}
         onMessage={onMessage}
-        showTrackButton={false}
+        onTrack={onTrack}
+        showTrackButton={true}
     />
   );
 }

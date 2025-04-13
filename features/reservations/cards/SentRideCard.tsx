@@ -6,16 +6,17 @@ interface Props {
   item: RideItem;
   onMessage: () => void;
   onDelete: () => void;
-  onTrack: () => void;
+  // onTrack: () => void;
 }
 
-export default function SentRideCard({ item, onMessage, onDelete, onTrack }: Props) {
+export default function SentRideCard({ item, onMessage, onDelete }: Props) {
   return (
     <RideCard
       item={item}
       isPassenger={false}
       onMessage={onMessage}
-      onTrack={onTrack}
+      onDelete={onDelete}
+      // onTrack={onTrack}
       showTrackButton={true}
     />
   );
