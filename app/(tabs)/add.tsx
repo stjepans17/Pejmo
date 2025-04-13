@@ -37,7 +37,7 @@ export default function AddListingScreen() {
 
 	return (
 		<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-			<ScrollView contentContainerStyle={{ padding: 20 }} keyboardShouldPersistTaps="handled">
+			<ScrollView keyboardShouldPersistTaps="handled">
 			<View style={localStyles.container}>
 				<View style={localStyles.navbar}>
 					<View style={styles.navbarSide}></View>
@@ -142,6 +142,7 @@ const localStyles = StyleSheet.create({
 	container: {
 		backgroundColor: "#f9f9f9",
 		flex: 1,
+		width: "100%",
 	},
 	navbar: {
 		height: 90,
