@@ -2,8 +2,9 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     backgroundColor: "#f9f9f9",
+    justifyContent: "flex-start",
   },
   heading: {
     fontSize: 22,
@@ -15,7 +16,7 @@ export const styles = StyleSheet.create({
   toggleContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    gap: 20,
+    gap: 10,
     marginBottom: 12,
   },
   toggleText: {
@@ -53,7 +54,8 @@ export const styles = StyleSheet.create({
     alignItems: 'flex-start'
   },
   mainContent: {
-    width: '80%'
+    flex: 1,
+    width: '90%'
   },
   navbarSide: {
     flex: 1,
@@ -124,4 +126,20 @@ export const styles = StyleSheet.create({
     borderColor: "#ddd",
     marginTop: 4,
   },
+  inputs: {
+    // width: "100%",
+    margin: "auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+      backgroundColor: "#fff",
+      borderRadius: 14,
+      padding: 16,
+      marginHorizontal: 16,
+      marginTop: 12,
+      shadowColor: "#000",
+      shadowOpacity: 0.05,
+      shadowRadius: 6,
+      elevation: 2,
+  }
 });

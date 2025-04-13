@@ -7,10 +7,11 @@ import { renderStars } from "@/utils";
 interface RideCardProps {
   item: RideItem;
   isPassenger: boolean;
-  onAccept: () => void;
-  onDecline: () => void;
-  onMessage: () => void;
+  onAccept?: () => void;
+  onDecline?: () => void;
+  onMessage?: () => void;
   onTrack?: () => void;
+  onDelete?: () => void;
   showTrackButton?: boolean;
 }
 
@@ -21,6 +22,7 @@ export const RideCard = ({
   onDecline,
   onMessage,
   onTrack,
+  onDelete,
   showTrackButton,
 }: RideCardProps) => (
   <View style={styles.card}>
@@ -48,20 +50,32 @@ export const RideCard = ({
 
     {/* Action Buttons */}
     <View style={styles.cardActions}>
-      <TouchableOpacity style={styles.button} onPress={onAccept}>
-        <Text style={styles.buttonText}>Accept</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onDecline}>
-        <Text style={styles.buttonText}>Decline</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onMessage}>
-        <Text style={styles.buttonText}>Message</Text>
-      </TouchableOpacity>
+      { onAccept ? (
+        <TouchableOpacity style={styles.button} onPress={onAccept}>
+          <Text style={styles.buttonText}>Accept</Text>
+        </TouchableOpacity>
+      ) : null}
+      { onMessage ? (
+        <TouchableOpacity style={styles.button} onPress={onMessage}>
+          <Text style={styles.buttonText}>Message</Text>
+        </TouchableOpacity>
+      ) : null }
       {showTrackButton && onTrack && (
         <TouchableOpacity style={styles.button} onPress={onTrack}>
           <Text style={styles.buttonText}>Track</Text>
         </TouchableOpacity>
       )}
+      { onDecline ? (
+        <TouchableOpacity style={styles.redButton} onPress={onDecline}>
+          <Text style={styles.redButtonText}>Decline</Text>
+        </TouchableOpacity>
+      ) : null }
+      { onDelete ? (
+          <TouchableOpacity style={styles.redButton} onPress={onDecline}>
+            <Text style={styles.redButtonText}>Delete</Text>
+          </TouchableOpacity>
+        ) : null
+      }
     </View>
   </View>
 );

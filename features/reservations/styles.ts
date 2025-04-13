@@ -37,6 +37,13 @@ export const styles = StyleSheet.create({
 
   card: {
     backgroundColor: "#fff",
+    
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+
+    width: 300,
+
     borderRadius: 12,
     padding: 16,
     marginBottom: 16,
@@ -62,7 +69,7 @@ export const styles = StyleSheet.create({
 
   cardActions: {
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "center",
     marginTop: 6,
     gap: 3,
   },
@@ -76,7 +83,7 @@ export const styles = StyleSheet.create({
 
   messageButton: {
     paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingHorizontal: 5,
     backgroundColor: "#E8E8FF",
     borderRadius: 6,
   },
@@ -87,14 +94,30 @@ export const styles = StyleSheet.create({
     color: "#4600DE", // unified for all
   },
 
+  redButton: {
+    paddingVertical: 6,
+    paddingHorizontal: 5,
+    borderColor: "#FF5252",
+    borderWidth: 2,
+    borderRadius: 6,
+  },
+  redButtonText: {
+    color: "#FF5252",
+    fontWeight: "bold",
+  },
+
   declineButton: {
     backgroundColor: "none",
     borderColor: "#F44336",
     borderWidth: 2,
     color: "#fff",
-    paddingVertical: 3,
-    paddingHorizontal: 10,
     borderRadius: 6,
+    paddingVertical: 6,
+    paddingHorizontal: 8,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 6,
   },
 
   declineButtonText: {
@@ -165,7 +188,10 @@ export const styles = StyleSheet.create({
 
   button: {
     paddingVertical: 6,
-    paddingHorizontal: 10,
+    paddingHorizontal: 8,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "#E8E8FF",
     borderRadius: 6,
     marginRight: 6,

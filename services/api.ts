@@ -24,6 +24,47 @@ export interface UserGetDTO {
   kycStatus: string;
 }
 
+export interface SimpleUserDTO {
+  firstName: string;
+  lastName: string;
+  username: string;
+  averageRating: number;
+}
+
+export interface LocationPointDTO {
+  latitude: number;
+  longitude: number;
+  name: string;
+}
+
+export interface RideOutputDTO {
+  id: number;
+  driver: SimpleUserDTO;
+  fromLocation: string;
+  toLocation: string;
+  startTime: string;
+  price: number;
+  allSeats: number;
+  takenSeats: number;
+  pickUpPoints: LocationPointDTO[];
+}
+
+export interface RideInputDTO {
+  username: string;
+  fromLocation: string;
+  toLocation: string;
+  startTime: string;
+  price: number;
+  allSeats: number;
+}
+
+export interface PassengerRequestDTO {
+  id: number;
+  passenger: SimpleUserDTO;
+  rideListingId: number;
+  requestStatus: string;
+}
+
 export const registerUser = async (dto: RegisterUserDTO): Promise<void> => {
   try {
     await apiClient.post("/register", dto);
@@ -165,31 +206,6 @@ export const getAcceptedOffersByDriver = async (
   }
 };
 
-export interface SimpleUserDTO {
-  firstName: string;
-  lastName: string;
-  username: string;
-  averageRating: number;
-}
-
-export interface LocationPointDTO {
-  latitude: number;
-  longitude: number;
-  name: string;
-}
-
-export interface RideOutputDTO {
-  id: number;
-  driver: SimpleUserDTO;
-  fromLocation: string;
-  toLocation: string;
-  startTime: string;
-  price: number;
-  allSeats: number;
-  takenSeats: number;
-  pickUpPoints: LocationPointDTO[];
-}
-
 // get all available rides
 // filters: fromLocation, toLocation, startTime
 export const getAllRides = async (
@@ -216,7 +232,6 @@ export const getAllRides = async (
   }
 };
 
-
 // get one ride by id
 export const getRideById = async (rideId: number): Promise<RideOutputDTO> => {
   try {
@@ -226,15 +241,6 @@ export const getRideById = async (rideId: number): Promise<RideOutputDTO> => {
     console.error(`Error fetching ride with ID ${rideId}:`, error);
     throw error;
   }
-}
-
-export interface RideInputDTO {
-  username: string;
-  fromLocation: string;
-  toLocation: string;
-  startTime: string;
-  price: number;
-  allSeats: number;
 }
 
 // create a new ride
@@ -247,13 +253,6 @@ export const createRide = async (dto: RideInputDTO): Promise<RideOutputDTO> => {
     throw error;
   }
 };
-
-export interface PassengerRequestDTO {
-  id: number;
-  passenger: SimpleUserDTO;
-  rideListingId: number;
-  requestStatus: string;
-}
 
 // user requests to be passenger in a ride
 export const requestRide = async (

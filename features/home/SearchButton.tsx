@@ -10,10 +10,13 @@ export default function SearchButton({ onPress }: { onPress: () => void }) {
 
 const styles = StyleSheet.create({
   btn: {
+    margin: "auto",
     marginTop: 16,
+    // marginBottom: 8,
     backgroundColor: "#4600DE",
     paddingVertical: 12,
     borderRadius: 8,
+    width: "50%",
   },
   text: {
     color: "#fff",

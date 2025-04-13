@@ -1,11 +1,13 @@
 import React from "react";
-import { View, Text, StyleSheet, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable, Alert } from "react-native";
 import { renderStars } from "../../utils";
+import { requestRide } from "@/services/api";
 
 interface RideInfo {
-  id: string;
+  id: number;
   time: string;
   driver: string;
+  driverUsername: string;
   rating: number;
   price: number;
 }
@@ -18,6 +20,17 @@ interface Props {
 }
 
 export default function RideResultCard({ from, to, date, rides }: Props) {
+  const onRequestPress = async (username: string, rideId: number) => {
+    console.log({username, rideId})
+    try {
+      const result = await requestRide(username, rideId);
+      Alert.alert("Success", "Request sent successfully!");
+      console.log("Response:", result);
+    } catch (error) {
+      Alert.alert("Error", "Failed to send request.");
+    }
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.headerRow}>
@@ -42,7 +55,7 @@ export default function RideResultCard({ from, to, date, rides }: Props) {
                 <Text style={styles.stars}>{renderStars(ride.rating)}</Text>
             </Text>
             <View style={styles.buttonRow}>
-              <Pressable style={styles.button}>
+              <Pressable onPress={() => onRequestPress(ride.driverUsername, ride.id)} style={styles.button}>
                 <Text style={styles.buttonText}>Send request</Text>
               </Pressable>
               <Pressable style={styles.button}>

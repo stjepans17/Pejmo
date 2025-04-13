@@ -115,7 +115,7 @@ export default function AddListingScreen() {
 					</View>
 
 					<View style={{ padding: 20 }}>
-						<Text style={sharedStyles.heading}>I am:</Text>
+						<Text style={sharedStyles.heading}>What’s your role?</Text>
 
 						<View style={sharedStyles.toggleContainer}>
 							<Pressable onPress={() => setType("passenger")}>
