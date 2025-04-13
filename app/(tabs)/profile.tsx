@@ -7,6 +7,7 @@ import {
   Pressable,
   Alert,
   Image,
+  Switch,
 } from "react-native";
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
@@ -39,31 +40,22 @@ export default function ProfileScreen(): JSX.Element {
   const [selfieUri, setSelfieUri] = useState<string | null>(null);
   const [idUri, setIdUri] = useState<string | null>(null);
   const [addressUri, setAddressUri] = useState<string | null>(null);
+  const [locationTracking, setLocationTracking] = useState<boolean>(false);
 
   useEffect(() => {
-    // Simulate fetch with mock data
     setTimeout(() => {
       fetch(`${HOST}/users/bojan`)
-      .then(res => res.json())
-      .then(data => {
-        data.kycStatus = "pending"
-        console.log(data);
-        setUser(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error("Failed to fetch user:", err);
-        setLoading(false);
-      });
-
-      // setUser({
-      //   firstName: "Bojan",
-      //   lastName: "Test",
-      //   averageRating: 4,
-      //   reviews: [],
-      //   kycStatus: "pending",
-      // });
-      // setLoading(false);
+        .then(res => res.json())
+        .then(data => {
+          data.kycStatus = "pending";
+          console.log(data);
+          setUser(data);
+          setLoading(false);
+        })
+        .catch(err => {
+          console.error("Failed to fetch user:", err);
+          setLoading(false);
+        });
     }, 800);
   }, []);
 
@@ -145,10 +137,25 @@ export default function ProfileScreen(): JSX.Element {
       <View style={styles.main}>
         <View style={styles.card}>
           <Text style={styles.name}>
-            {user.firstName} {user.lastName} • <Text style={styles.stars}>{renderStars(user.averageRating)}</Text>
+            {user.firstName} {user.lastName} •{" "}
+            <Text style={styles.stars}>{renderStars(user.averageRating)}</Text>
           </Text>
 
-          <Text style={styles.label}>Verification status: <Text style={getStatusStyle(user.kycStatus)}>{user.kycStatus}</Text></Text>
+          <Text style={styles.label}>
+            Verification status:{" "}
+            <Text style={getStatusStyle(user.kycStatus)}>{user.kycStatus}</Text>
+          </Text>
+
+          {/* ✅ Location tracking switch */}
+          <View style={{ flexDirection: "row", alignItems: "center", marginVertical: 10 }}>
+            <Switch
+              value={locationTracking}
+              onValueChange={setLocationTracking}
+            />
+            <Text style={{ marginLeft: 8, fontSize: 16 }}>
+              Allow tracking user's location
+            </Text>
+          </View>
 
           <Text style={styles.label}>KYC Documents:</Text>
 
@@ -175,7 +182,8 @@ export default function ProfileScreen(): JSX.Element {
             user.reviews.map((review, index) => (
               <View key={index} style={styles.commentBlock}>
                 <Text style={styles.commentHeader}>
-                  {review.firstName} {review.lastName} • <Text style={styles.stars}>{renderStars(review.rating)}</Text>
+                  {review.firstName} {review.lastName} •{" "}
+                  <Text style={styles.stars}>{renderStars(review.rating)}</Text>
                 </Text>
                 <Text style={styles.commentText}>{review.review}</Text>
               </View>
